@@ -53,8 +53,10 @@ public class UserController {
 		user.setCart(cart);
 		if(createUserRequest.getPassword().length() < 7 ||
 				!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())){
+			log.error("password does not meat requirements ", createUserRequest.getPassword());
 			return ResponseEntity.badRequest().build();
 		}
+		log.info("Added user account with ", createUserRequest.getUsername());
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 		userRepository.save(user);
 		return ResponseEntity.ok(user);
