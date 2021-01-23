@@ -47,16 +47,16 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
 		User user = new User();
 		user.setUsername(createUserRequest.getUsername());
-		log.info("set username with", createUserRequest.getUsername());
+		log.info("set username with " + createUserRequest.getUsername());
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
 		if(createUserRequest.getPassword().length() < 7 ||
 				!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())){
-			log.error("password does not meat requirements ", createUserRequest.getPassword());
+			log.error("password does not meat requirements " + createUserRequest.getPassword());
 			return ResponseEntity.badRequest().build();
 		}
-		log.info("Added user account with ", createUserRequest.getUsername());
+		log.info("Added user account with " + createUserRequest.getUsername());
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 		userRepository.save(user);
 		return ResponseEntity.ok(user);

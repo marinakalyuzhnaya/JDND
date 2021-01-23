@@ -29,7 +29,7 @@ public class ItemController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Item> getItemById(@PathVariable Long id) {
-		log.info("Get item by given id", id);
+		log.info("Get item by given id " + id);
 		return ResponseEntity.of(itemRepository.findById(id));
 	}
 	
@@ -38,11 +38,11 @@ public class ItemController {
 		List<Item> items = itemRepository.findByName(name);
 
 		if (items == null || items.isEmpty()) {
-			log.error("Failed to get items by given name", name);
+			log.error("Failed to get items by given name " + name);
 			return ResponseEntity.notFound().build();
 		}
 
-		log.info("Get items by given name", name);
+		log.info("Get items by given name " + name);
 		return ResponseEntity.ok(items);
 			
 	}
